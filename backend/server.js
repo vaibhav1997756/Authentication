@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use(cors());
 
-const db= mysqlCreateConnection({
+const db= mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'',
@@ -22,6 +22,12 @@ app.post('/signup',(req,res) =>{
         req.body.email,
         req.body.password
     ]
+    db.query(sql,[values],(err,data)=>{
+        if(err){
+            return res.json("error");
+        }
+        return res.json(data);
+    })
 
 })
 
